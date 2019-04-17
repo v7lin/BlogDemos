@@ -27,7 +27,7 @@ steps:
 - name: publish
   image: plugins/docker
   settings:
-    repo: v7lin/aspnetblog
+    repo: v7lin/blog-aspnet
     context: AspNetCore.Docker
     dockerfile: AspNetCore.Docker/AspNetCore.Docker/Dockerfile
     target: prod
@@ -36,7 +36,7 @@ steps:
     password:
       from_secret: REGISTRY_PASSWORD
     tags:
-    - ${DRONE_TAG}
+#    - ${DRONE_TAG}
     - latest
 
 trigger:
