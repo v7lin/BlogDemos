@@ -7,7 +7,7 @@ platform:
 
 steps:
 - name: build
-  image: microsoft/dotnet:2.1-sdk-nanoserver-1803
+  image: mcr.microsoft.com/dotnet/core/sdk:2.1
   commands:
   - cd AspNetCore.Docker/AspNetCore.Docker
   - dotnet build AspNetCore.Docker.csproj -c Release -o /app
