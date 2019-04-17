@@ -27,7 +27,7 @@ steps:
 - name: publish
   image: plugins/docker
   settings:
-    repo: v7lin/blog-dotnet
+    repo: v7lin/aspnetblog
     context: AspNetCore.Docker
     dockerfile: AspNetCore.Docker/AspNetCore.Docker/Dockerfile
     target: prod
