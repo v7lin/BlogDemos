@@ -11,9 +11,9 @@ steps:
   commands:
   - cd AspNetCore.Docker/AspNetCore.Docker
   - dotnet build AspNetCore.Docker.csproj -c Release -o /app
-  - ls
+  - ls /app
   - dotnet publish -c Release -o ../publish
-  - ls
+  - ls ../publish
 
 ---
 kind: pipeline
