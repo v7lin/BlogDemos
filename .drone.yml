@@ -15,23 +15,6 @@ steps:
 
 ---
 kind: pipeline
-name: build-windows
-
-platform:
-  os: windows
-  arch: amd64
-  version: 1803
-
-steps:
-- name: build
-  image: mcr.microsoft.com/dotnet/core/sdk:2.1
-  commands:
-  - cd AspNetCore.Docker/AspNetCore.Docker
-  - dotnet build -c Release -o /build
-  - dotnet publish -c Release -o /app
-
----
-kind: pipeline
 name: publish
 
 platform:
