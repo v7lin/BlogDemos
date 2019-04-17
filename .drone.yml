@@ -10,7 +10,7 @@ steps:
   image: mcr.microsoft.com/dotnet/core/sdk:2.1
   commands:
   - cd AspNetCore.Docker/AspNetCore.Docker
-  - dotnet build AspNetCore.Docker.csproj -c Release -o /app
+  - dotnet build -c Release -o /app
   - ls /app
   - dotnet publish -c Release -o ../publish
   - ls ../publish
