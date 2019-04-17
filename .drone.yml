@@ -1,0 +1,49 @@
+kind: pipeline
+name: build
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: build
+  image: microsoft/dotnet:2.1-sdk-nanoserver-1803
+  commands:
+  - cd AspNetCore.Docker/AspNetCore.Docker
+  - dotnet build AspNetCore.Docker.csproj -c Release -o /app
+  - ls
+  - dotnet publish -c Release -o ../publish
+  - ls
+
+---
+kind: pipeline
+name: publish-windows
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: publish
+  image: plugins/docker
+  settings:
+    repo: v7lin/blog-dotnet
+    context: AspNetCore.Docker/AspNetCore.Docker
+    dockerfile: AspNetCore.Docker/AspNetCore.Docker/Dockerfile
+    target: prod
+    username:
+      from_secret: REGISTRY_USER
+    password:
+      from_secret: REGISTRY_PASSWORD
+    tags:
+    - ${DRONE_TAG}
+    - latest
+
+trigger:
+  status:
+  - success
+  event:
+  - tag
+
+depends_on:
+- build
