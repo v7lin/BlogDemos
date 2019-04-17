@@ -1,5 +1,5 @@
 kind: pipeline
-name: build-linux
+name: build
 
 platform:
   os: linux
@@ -10,32 +10,14 @@ steps:
   image: mcr.microsoft.com/dotnet/core/sdk:2.1
   commands:
   - cd AspNetCore.Docker/AspNetCore.Docker
-  - dotnet build -c Release -o /app
+  - dotnet build -c Release -o /build
+  - ls /build
+  - dotnet publish -c Release -o /app
   - ls /app
-  - dotnet publish -c Release -o ../publish
-  - ls ../publish
 
 ---
 kind: pipeline
-name: build-windows
-
-platform:
-  os: windows
-  arch: amd64
-
-steps:
-- name: build
-  image: mcr.microsoft.com/dotnet/core/sdk:2.1
-  commands:
-  - cd AspNetCore.Docker/AspNetCore.Docker
-  - dotnet build -c Release -o /app
-  - ls /app
-  - dotnet publish -c Release -o ../publish
-  - ls ../publish
-
----
-kind: pipeline
-name: publish-linux
+name: publish
 
 platform:
   os: linux
@@ -64,36 +46,4 @@ trigger:
   - tag
 
 depends_on:
-- build-linux
-
----
-kind: pipeline
-name: publish-windows
-
-platform:
-  os: windows
-  arch: amd64
-
-steps:
-- name: publish
-  image: plugins/docker
-  settings:
-    repo: v7lin/blog-dotnet
-    context: AspNetCore.Docker/AspNetCore.Docker
-    dockerfile: AspNetCore.Docker/AspNetCore.Docker/Dockerfile
-    target: prod
-    username:
-      from_secret: REGISTRY_USER
-    password:
-      from_secret: REGISTRY_PASSWORD
-    tags:
-    - ${DRONE_TAG}-windows
-
-trigger:
-  status:
-  - success
-  event:
-  - tag
-
-depends_on:
-- build-windows
+- build
