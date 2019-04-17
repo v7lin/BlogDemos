@@ -2,9 +2,12 @@
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.1 as publish
 
-WORKDIR /src
-ADD ../ /src
+ADD . /src
+
 RUN ls /src
+
+WORKDIR /src
+
 RUN dotnet publish -c Release -o /app
 
 # --- prod ---
