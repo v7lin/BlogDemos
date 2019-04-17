@@ -2,6 +2,7 @@
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.1 as publish
 
+RUN ls
 RUN dotnet publish -c Release -o /app
 
 # --- prod ---

@@ -42,8 +42,8 @@ steps:
 trigger:
   status:
   - success
-  event:
-  - tag
+#  event:
+#  - tag
 
 depends_on:
 - build
